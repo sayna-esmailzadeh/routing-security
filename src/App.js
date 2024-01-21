@@ -1,10 +1,20 @@
-import logo from './logo.svg';
+// import logo from './logo.svg'
+import { useState } from 'react';
 import './App.css';
+import axios from 'axios';
 
 function App() {
+  const [address, setAddress] = useState("")
+
+  const onClicked = () => {
+    axios.get(`https://api.ipify.org?format=json`)
+      .then(res => {
+        setAddress(res.data.ip)
+      })
+  }
   return (
     <div className="App">
-      <header className="App-header">
+      {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
@@ -17,7 +27,9 @@ function App() {
         >
           Learn React
         </a>
-      </header>
+      </header> */}
+      <body><button onClick={() => onClicked()}>Get IP</button>
+        <div>{`My IP Address is: ${address}`}</div></body>
     </div>
   );
 }
